@@ -53,6 +53,7 @@ Finaly, replace all "$private_ipv4" pattern with the ip of master node. The only
 This is the limitation with coreOS and VMware : https://coreos.com/os/docs/latest/booting-on-vmware.html#cloud-config
 
 Last step : create an iso :
+
 	cd <path to datastore>/cloud-config/
 	mkisofs -R -V config-2 -o config-master.iso master/
 	
@@ -79,6 +80,7 @@ Finaly, replace all "<master-private-ip>" pattern with the ip of master node.
 	sed -i 's|<master-private-ip>|10.0.0.1|g' user_data
 
 Last step : create an iso :
+
 	cd <path to datastore>/cloud-config/
 	mkisofs -R -V config-2 -o config-minion.iso minion/
 	
