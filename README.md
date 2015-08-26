@@ -86,7 +86,10 @@ Last step : create an iso :
 	
 # Start the cluster
 On firt VM, mount the config-master.iso on VM preperties. Don't foget to set "Connect on Start up".
-On second, and all other futher nodes  mount the config-minion.iso 
 
-# check 
+On second, and all other futher nodes  mount the config-minion.iso.
+
+Start your servers.
+
+# Check 
 Check your cluster heatlh : http://10.0.0.1:8080/static/app/#/dashboard/
