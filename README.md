@@ -85,7 +85,7 @@ Last step : create an iso :
 	mkisofs -R -V config-2 -o config-minion.iso minion/
 	
 # Start the cluster
-On firt VM, mount the config-master.iso on VM preperties. Don't foget to set "Connect on Start up".
+On firt VM, mount the config-master.iso on VM properties. Don't foget to set "Connect on Start up".
 
 On second, and all other futher nodes  mount the config-minion.iso.
 
@@ -93,3 +93,8 @@ Start your servers.
 
 # Check 
 Check your cluster heatlh : http://10.0.0.1:8080/static/app/#/dashboard/
+
+Check each server :
+
+	ssh core@10.0.0.1
+	journalctl -f
