@@ -37,27 +37,26 @@ Master:
 
 Don't forget to add your ssh_key :
 
-			vi user_data
-																			
-  [...]
-  ssh_authorized_keys:
-  - ssh-rsa AAAAB...
-  coreos:
-    etcd2:
-  [...]
+	vi user_data
+  	[...]
+	 ssh_authorized_keys:
+	 - ssh-rsa AAAAB...
+	  coreos:
+	    etcd2:
+	  [...]
   
 Minion:
 
-  mkdir -p <path to datastore>/cloud-config/minion/openstack/latest/
-  cd <path to datastore>/cloud-config/minion/openstack/latest/
-  wget https://github.com/kubernetes/kubernetes/blob/master/docs/getting-started-guides/coreos/cloud-configs/node.yaml && mv node.yaml user_data
+	mkdir -p <path to datastore>/cloud-config/minion/openstack/latest/
+	cd <path to datastore>/cloud-config/minion/openstack/latest/
+	wget https://github.com/kubernetes/kubernetes/blob/master/docs/getting-started-guides/coreos/cloud-configs/node.yaml && mv node.yaml user_data
   
  Don't forget to add your ssh_key :
  
-  vi user_data
-  [...]
-  ssh_authorized_keys:
-  - ssh-rsa AAAAB...
-  coreos:
-    etcd2:
-  [...]
+	vi user_data
+	[...]
+  	ssh_authorized_keys:
+  	  - ssh-rsa AAAAB...
+  	coreos:
+	  etcd2:
+	[...]
