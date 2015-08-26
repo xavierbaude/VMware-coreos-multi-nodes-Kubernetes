@@ -25,9 +25,9 @@ Import ova on VMware via the vSphere Client :
 
 Create a template via vSphere Client :
 
-    right click on the VM and Templte > Convert into template
+    right click on the VM and Template > Convert into template
 
-Now you can create at least 2 servers based on this template, do this task but don't start it yet.
+Now you can create -at least- 2 servers based on this template, do this task but don't start it yet.
 
 # Cloud-Config for master node
 On the VMware datastore, create a directory and initialize config, example :
@@ -46,7 +46,7 @@ Don't forget to add your ssh_key :
 	    etcd2:
 	  [...]
   
-Finaly, replace all "$private_ipv4" pattern with the ip of master node. The only way to perform this is to fix a DHCP lease with the MAC address. This MAC address can be get on vsphere : right click on VM, network adapter.
+/!\ Finaly, replace all "$private_ipv4" pattern with the ip of master node. The only way to perform this is to fix a DHCP lease with the MAC address of your master server. This MAC address can be get on vsphere : right click on VM, network adapter. Here, 10.0.0.1 is the master fixed ip address.
 
 	sed -i 's|$private_ipv4|10.0.0.1|g' user_data
 
@@ -75,7 +75,7 @@ On the VMware datastore, create a directory and initialize config, example :
 	  etcd2:
 	[...]
 
-Finaly, replace all "<master-private-ip>" pattern with the ip of master node.
+Finaly, replace all "<master-private-ip>" pattern with the ip of master node. (here 10.0.0.1)
 
 	sed -i 's|<master-private-ip>|10.0.0.1|g' user_data
 
@@ -85,7 +85,7 @@ Last step : create an iso :
 	mkisofs -R -V config-2 -o config-minion.iso minion/
 	
 # Start the cluster
-On firt VM, mount the config-master.iso on VM properties. Don't foget to set "Connect on Start up".
+On firt VM, mount the config-master.iso with VM properties (CD/DVD reader and "Datastore ISO file"), browse to "<path to datastore>/cloud-config/". Don't foget to set "Connect on Start up".
 
 On second, and all other futher nodes  mount the config-minion.iso.
 
@@ -98,3 +98,5 @@ Check each server :
 
 	ssh core@10.0.0.1
 	journalctl -f
+	
+# Enjoy
