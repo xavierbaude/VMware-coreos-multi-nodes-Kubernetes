@@ -57,6 +57,7 @@ Last step : create an iso :
 	cd <path to datastore>/cloud-config/
 	mkisofs -R -V config-2 -o config-master.iso master/
 
+Note: mkisofs has been removed from recent Debian releases. If you happen to be affected by this try xorrisofs (same parameters as above) which is available from the package xorriso.
 
 # Cloud-Config for minion node
 On the VMware datastore, create a directory and initialize config, example :
@@ -75,7 +76,7 @@ On the VMware datastore, create a directory and initialize config, example :
 	  etcd2:
 	[...]
 
-Finaly, replace all "<master-private-ip>" pattern with the ip of master node. (here 10.0.0.1)
+Finaly, replace all "&lt;master-private-ip>" pattern with the ip of master node. (here 10.0.0.1)
 
 	sed -i 's|<master-private-ip>|10.0.0.1|g' user_data
 
@@ -85,7 +86,7 @@ Last step : create an iso :
 	mkisofs -R -V config-2 -o config-minion.iso minion/
 
 # Start the cluster
-On firt VM, mount the config-master.iso with VM properties (CD/DVD reader and "Datastore ISO file"), browse to "<path to datastore>/cloud-config/". Don't foget to set "Connect on Start up".
+On first VM, mount the config-master.iso with VM properties (CD/DVD reader and "Datastore ISO file"), browse to "<path to datastore>/cloud-config/". Don't foget to set "Connect on Start up".
 
 On second, and all other futher nodes  mount the config-minion.iso.
 
