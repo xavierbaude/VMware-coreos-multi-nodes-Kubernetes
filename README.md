@@ -32,9 +32,9 @@ Now you can create -at least- 2 servers based on this template, do this task but
 # Cloud-Config for master node
 On the VMware datastore, create a directory and initialize config, example :
 
-    mkdir -p <path to datastore>/cloud-config/master/openstack/latest/ 
+    mkdir -p <path to datastore>/cloud-config/master/openstack/latest/
     cd <path to datastore>/cloud-config/master/openstack/latest/
-    wget https://raw.githubusercontent.com/kubernetes/kubernetes/master/docs/getting-started-guides/coreos/cloud-configs/master.yaml && mv master.yaml user_data
+    wget http://kubernetes.io/docs/getting-started-guides/coreos/cloud-configs/master.yaml && mv master.yaml user_data
 
 Don't forget to add your ssh_key :
 
@@ -45,7 +45,7 @@ Don't forget to add your ssh_key :
 	  coreos:
 	    etcd2:
 	  [...]
-  
+
 /!\ Finaly, replace all "$private_ipv4" pattern with the ip of master node. The only way to perform this is to fix a DHCP lease with the MAC address of your master server. This MAC address can be get on vsphere : right click on VM, network adapter. Here, 10.0.0.1 is the master fixed ip address.
 
 	sed -i 's|$private_ipv4|10.0.0.1|g' user_data
@@ -56,17 +56,18 @@ Last step : create an iso :
 
 	cd <path to datastore>/cloud-config/
 	mkisofs -R -V config-2 -o config-master.iso master/
-	
-	
+
+Note: mkisofs has been removed from recent Debian releases. If you happen to be affected by this try xorrisofs (same parameters as above) which is available from the package xorriso.
+
 # Cloud-Config for minion node
 On the VMware datastore, create a directory and initialize config, example :
 
 	mkdir -p <path to datastore>/cloud-config/minion/openstack/latest/
 	cd <path to datastore>/cloud-config/minion/openstack/latest/
-	wget https://raw.githubusercontent.com/kubernetes/kubernetes/master/docs/getting-started-guides/coreos/cloud-configs/node.yaml && mv node.yaml user_data
-  
+	wget http://kubernetes.io/docs/getting-started-guides/coreos/cloud-configs/node.yaml && mv node.yaml user_data
+
  Don't forget to add your ssh_key :
- 
+
 	vi user_data
 	[...]
   	ssh_authorized_keys:
@@ -75,7 +76,7 @@ On the VMware datastore, create a directory and initialize config, example :
 	  etcd2:
 	[...]
 
-Finaly, replace all "<master-private-ip>" pattern with the ip of master node. (here 10.0.0.1)
+Finaly, replace all "&lt;master-private-ip>" pattern with the ip of master node. (here 10.0.0.1)
 
 	sed -i 's|<master-private-ip>|10.0.0.1|g' user_data
 
@@ -83,20 +84,20 @@ Last step : create an iso :
 
 	cd <path to datastore>/cloud-config/
 	mkisofs -R -V config-2 -o config-minion.iso minion/
-	
+
 # Start the cluster
-On firt VM, mount the config-master.iso with VM properties (CD/DVD reader and "Datastore ISO file"), browse to "<path to datastore>/cloud-config/". Don't foget to set "Connect on Start up".
+On first VM, mount the config-master.iso with VM properties (CD/DVD reader and "Datastore ISO file"), browse to "<path to datastore>/cloud-config/". Don't foget to set "Connect on Start up".
 
 On second, and all other futher nodes  mount the config-minion.iso.
 
 Start your servers.
 
-# Check 
+# Check
 Check your cluster heatlh : http://10.0.0.1:8080/static/app/#/dashboard/
 
 Check each server :
 
 	ssh core@10.0.0.1
 	journalctl -f
-	
+
 # Enjoy
